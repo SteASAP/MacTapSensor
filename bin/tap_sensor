@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative '../lib/tap_sensor'
+
+config = MacMoan::Configuration.new
+
+# Parse simple command-line overrides
+sound_dir_changed = false
+ARGV.each do |arg|
+  key, value = arg.split('=', 2)
+  next unless key && value
+
+  key = key.delete_prefix('--').tr('-', '_')
+
+  case key
+  when 'threshold', 'cooldown', 'settle', 'rearm_delta',
+       'escalate_window', 'decay_window', 'reset_window'
+    config.public_send(:"#{key}=", Float(value))
+  when 'sample_rate', 'baseline_window', 'max_zone'
+    config.public_send(:"#{key}=", Integer(value))
+  when 'sound_dir'
+    config.sound_dir = value
+    sound_dir_changed = true
+  end
+end
+
+# Rebuild zone_map if sound_dir was changed via CLI
+config.rebuild_zone_map! if sound_dir_changed
+
+MacMoan::App.new(config).run
