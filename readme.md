@@ -30,17 +30,17 @@ Fun, experimental, and mildly chaotic.
 
 ## Installation
 
-\`\`\`bash
+```bash
 git clone <repo-url>
 cd macMoan
 bundle install
-\`\`\`
+```
 
 ### Sound files
 
 Place `.wav`, `.mp3`, `.aiff`, or `.m4a` files in `sounds/long/` organised by zone:
 
-\`\`\`
+```
 sounds/long/
 ├── 1.wav # zone 1 (calm)
 ├── 2.wav
@@ -49,7 +49,7 @@ sounds/long/
 ├── ...
 ├── 13.wav # zone 5 (max escalation)
 └── 14.wav
-\`\`\`
+```
 
 The default zone map is defined in `Configuration`. You can customise which files belong to which zone.
 
@@ -57,36 +57,23 @@ The default zone map is defined in `Configuration`. You can customise which file
 
 ## Usage
 
-\`\`\`bash
-sudo ruby bin/tap_sensor
-\`\`\`
-
-### Choosing a sound pack
-
-\`\`\`bash
-
-# Default (moan)
-
+**Default sounds**
 sudo ruby bin/tap_sensor
 
-# Ouch sounds
-
+**Ouch sounds**
 sudo ruby bin/tap_sensor --sound_dir=sounds/ouch
 
-# Long sounds
-
+**Long sounds**
 sudo ruby bin/tap_sensor --sound_dir=sounds/longsounds
 
-# Your own folder
-
+**Your own folder**
 sudo ruby bin/tap_sensor --sound_dir=path/to/your/sounds
-\`\`\`
 
 ### Command-line overrides
 
-\`\`\`bash
+```bash
 sudo ruby bin/tap_sensor --threshold=0.20 --cooldown=0.50 --sound_dir=sounds/ouch
-\`\`\`
+```
 
 All numeric config values can be overridden with `--key=value` flags. Use underscores in key names.
 
@@ -131,8 +118,8 @@ All numeric config values can be overridden with `--key=value` flags. Use unders
 
 ## Project structure
 
-\`\`\`
-macMoan/
+```
+src/
 ├── bin/
 │ └── tap_sensor # entry point
 ├── lib/
@@ -157,15 +144,15 @@ macMoan/
 ├── Gemfile
 ├── .rspec
 └── README.md
-\`\`\`
+```
 
 ---
 
 ## Tests
 
-\`\`\`bash
+```bash
 bundle exec rspec
-\`\`\`
+```
 
 Tests cover spike detection, cooldown/re-arm logic, zone escalation, baseline integrity, and sound player path validation. The `TapDetector` accepts an injectable clock for deterministic time-based tests.
 
